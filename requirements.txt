@@ -2,6 +2,6 @@
 streamlit
 pandas
 SQLAlchemy
-psycopg2-binary
+psycopg
 requests
 python-dotenv
