@@ -1,8 +1,7 @@
-.env
-.env.*
-!.env.example
-.venv/
-.venv-*/
-venv/
-__pycache__/
-*.py[cod]
+
+streamlit
+pandas
+SQLAlchemy
+psycopg2-binary
+requests
+python-dotenv
