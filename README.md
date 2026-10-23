@@ -1,37 +1,50 @@
-# Cricbuzz LiveStats
+# 🏏 Cricbuzz LiveStats
 
-A cricket statistics and analytics application built with Python, Streamlit, PostgreSQL, and the Cricbuzz API.
+A cricket statistics and analytics application built with **Python, Streamlit, PostgreSQL, and the Cricbuzz API**. The project brings match information, player performance data, SQL analytics, and player-record management into one interactive application.
 
-## Project Overview
+**GitHub Repository:** [ritikraj77320/cricbuzz-livestats](https://github.com/ritikraj77320/cricbuzz-livestats)
 
-Cricbuzz LiveStats retrieves cricket match data from a Cricbuzz API provider, stores structured match and player information in PostgreSQL, and presents cricket statistics through an interactive Streamlit application.
+---
 
-## Features
+## 📌 Project Overview
 
-- **Live Matches:** View match information retrieved from the API.
-- **Player Statistics:** Explore recorded batting and bowling performances.
-- **SQL Analytics:** Execute predefined, read-only analytics queries covering matches, batting, bowling, players, teams, fielding, partnerships, and advanced SQL analysis.
-- **Player Management:** Manage player records through the application.
-- **Scorecard Import:** Parse and import innings, batting, bowling, extras, partnerships, and fielding contributions.
-- **PostgreSQL Database:** Store structured cricket data and relationships.
-- **Data Validation:** Test scorecard parsing, database operations, and SQL analytics.
+Cricbuzz LiveStats retrieves cricket data through a configured Cricbuzz API provider, works with structured information in PostgreSQL, and presents features through a Streamlit interface. It demonstrates API integration, relational database design, SQL querying, Python data processing, and multi-page web application development.
 
-## Technology Stack
+## ✨ Features
 
-- **Language:** Python
-- **Frontend:** Streamlit
-- **Database:** PostgreSQL
-- **Data access:** SQLAlchemy and PostgreSQL database connectivity
-- **Data processing:** Pandas
-- **API integration:** HTTP requests to the configured Cricbuzz API provider
-- **Testing:** Python test scripts
+- **Live Matches** — View match information retrieved from the configured API.
+- **Player Statistics** — Explore recorded batting and bowling performance data.
+- **SQL Analytics** — Run predefined, read-only analytical queries for matches, players, teams, batting, bowling, fielding, partnerships, and other supported analyses.
+- **Player Management** — Use the application interface to work with player records.
+- **Scorecard Import** — Parse and import supported scorecard information, including innings, batting, bowling, extras, partnerships, and fielding contributions.
+- **PostgreSQL Database** — Store structured cricket data and related records.
+- **Validation and Tests** — Test supported scorecard parsing, database operations, and SQL analytics.
 
-## Project Structure
+> Available data and functionality depend on API access, database configuration, and which records have been imported.
 
+## 🧰 Technology Stack
 
+| Area | Technologies |
+|---|---|
+| Language | Python |
+| Web interface | Streamlit |
+| Database | PostgreSQL |
+| Database access | SQLAlchemy, psycopg |
+| Data processing | Pandas |
+| API integration | HTTP requests, configured Cricbuzz API provider |
+| Configuration | Environment variables / `.env` |
+| Testing | Python test scripts |
+
+## 📂 Project Structure
+
+```text
 cricbuzz-livestats/
 ├── app.py
 ├── pages/
+│   ├── 1_🏏_Live_Matches.py
+│   ├── 2_🏆_Player_Statistics.py
+│   ├── 3_📊_SQL_Analytics.py
+│   └── 4_👥_Player_Management.py
 ├── src/
 │   ├── api/
 │   ├── analytics/
@@ -43,97 +56,153 @@ cricbuzz-livestats/
 ├── data/
 │   └── raw/
 ├── docs/
+│   ├── api.md
 │   ├── architecture.md
-│   ├── database.md
-│   └── api.md
+│   └── database.md
 ├── tests/
 ├── .env.example
 ├── .gitignore
 ├── requirements.txt
 └── README.md
+```
 
+## ✅ Prerequisites
 
-## Prerequisites
+Before running the application, install or arrange access to:
 
-- Python installed
-- PostgreSQL installed and running
-- A valid API subscription and credentials for the configured Cricbuzz API provider
-- Git, if you want to clone or version-control the project
+- Python (a version compatible with the packages in `requirements.txt`)
+- PostgreSQL, locally or on a hosted PostgreSQL service
+- API credentials for the configured Cricbuzz API provider
+- Git (optional, for cloning the repository)
 
-## Installation
+## 🚀 Installation and Setup
 
-1. Clone the repository or download the project source.
-2. Open the project directory in a terminal.
-3. Create and activate a virtual environment.
-4. Install the dependencies.
-5. Create a PostgreSQL database.
-6. Configure the environment variables.
-7. Initialize the database schema.
-8. Start the Streamlit application.
+### 1. Clone the repository
 
-Example commands for Windows PowerShell:
+```powershell
+git clone https://github.com/ritikraj77320/cricbuzz-livestats.git
+cd cricbuzz-livestats
+```
+
+Alternatively, download the repository ZIP from GitHub and extract it.
+
+### 2. Create and activate a virtual environment
 
 ```powershell
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
+```
+
+If PowerShell blocks activation, follow your system's Python environment policy or activate the environment using the terminal you normally use.
+
+### 3. Install dependencies
+
+```powershell
+python -m pip install --upgrade pip
 pip install -r requirements.txt
+```
+
+### 4. Create a PostgreSQL database
+
+Start PostgreSQL and create a database named `cricbuzz_livestats` (or choose another name and use it consistently in your configuration). For example, in `psql`:
+
+```sql
+CREATE DATABASE cricbuzz_livestats;
+```
+
+### 5. Configure environment variables
+
+Create a local `.env` file in the project root, using `.env.example` as a reference. The application code currently uses these variable names:
+
+```dotenv
+RAPIDAPI_KEY=your_rapidapi_key_here
+RAPIDAPI_HOST=your_rapidapi_host_here
+
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=cricbuzz_livestats
+DB_USER=your_postgres_username
+DB_PASSWORD=your_postgres_password
+```
+
+Replace the placeholders with your own values. The API host must match the host required by your configured API provider. If using a hosted PostgreSQL database, use the host and credentials supplied by that provider rather than `localhost`.
+
+**Never commit `.env`, real API keys, database passwords, or other credentials to GitHub.** Keep `.env.example` limited to placeholder values.
+
+### 6. Initialize the database schema
+
+Run the SQL in `database/schema.sql` against the database you configured. You can use `psql`, pgAdmin, or your PostgreSQL provider's SQL editor. For example, from a terminal where `psql` is available:
+
+```powershell
+psql -U your_postgres_username -d cricbuzz_livestats -f database/schema.sql
+```
+
+Run the checks in `database/verification.sql` to verify the database objects and checks defined in that file.
+
+### 7. Start the Streamlit application
+
+From the project root, run:
+
+```powershell
 streamlit run app.py
 ```
 
-## Configuration
+Streamlit will provide a local URL in the terminal, typically `http://localhost:8501`.
 
-Create a local `.env` file using `.env.example` as a reference.
+## 🔄 Importing Scorecards
 
-Configure the API credentials and PostgreSQL connection settings using the variable names expected by the application.
-
-**Never commit your actual API key, database password, or other secrets to GitHub.**
-
-## Database
-
-The database schema is maintained in `database/schema.sql`. The project stores match information, teams, venues, series, innings, players, batting performances, bowling performances, fielding performances, and batting partnerships.
-
-Use `database/verification.sql` to run the database checks defined for the project.
-
-## Running Scorecard Imports
-
-The scorecard importer can retrieve match IDs from the configured live-matches API response and import available scorecards.
-
-Run it from the project root:
+The scorecard importer can retrieve match IDs from the configured live-matches API response and import available scorecards. Run this command from the project root after configuring the API and database:
 
 ```powershell
 python -m src.database.import_scorecard
 ```
 
-The importer depends on the configured API credentials, database connection, and the match records already present in PostgreSQL.
+The importer depends on valid API credentials, a working database connection, and the match records required by the import workflow.
 
-## Testing
+## 🧪 Testing
 
-The `tests/` directory contains test scripts for API access, database access, scorecard parsing, fielding parsing, player statistics, repository operations, and SQL analytics.
+The `tests/` directory contains scripts for areas such as API access, database access, scorecard parsing, fielding parsing, player statistics, repository operations, and SQL analytics.
 
-Run individual test scripts using Python from the project root. Confirm the required environment variables and database are configured before running integration tests.
+Run an individual test script from the project root using Python. Before running integration tests, make sure the required environment variables are set and the database is available. Use the exact test filenames present in the repository.
 
-## Current Validation
+## ✔️ Current Validation
 
-- Four Streamlit pages have been tested by the developer.
-- All 32 predefined SQL analytics queries have been verified by the developer.
-- Fielding import was tested using a completed match scorecard.
+The project README supplied for this update records the following developer validation:
+
+- Four Streamlit pages have been tested.
+- All 32 predefined SQL analytics queries have been verified.
+- Fielding import has been tested using a completed match scorecard.
 - Reimporting that scorecard preserved the verified fielding totals.
 
-## Security
+These checks describe the validation recorded by the developer; they do not imply that every deployment environment has been tested.
+
+## 🔐 Security Notes
 
 - Keep `.env` out of version control.
-- Use `.env.example` with placeholder values.
-- Do not commit virtual environments, Python cache folders, or unnecessary debug responses.
-- Validate and handle API failures and incomplete scorecards.
+- Store only placeholder values in `.env.example`.
+- Never expose API keys, database passwords, or connection strings in screenshots, videos, logs, or public repositories.
+- Do not commit virtual environments, Python cache files, or sensitive API responses.
+- Handle API failures, incomplete scorecards, and database connection errors gracefully.
+- For a cloud deployment, configure secrets through the hosting platform and use a reachable hosted database; `localhost` in a cloud environment refers to that environment, not your personal computer.
 
-## Future Improvements
+## 🛣️ Future Improvements
 
-- Automated scheduled scorecard synchronization
-- Improved API retry and rate-limit handling
-- More comprehensive automated tests
-- Enhanced match-specific and player-specific analytics
-- Deployment and production configuration
+- Scheduled scorecard synchronization
+- More robust API retry and rate-limit handling
+- Broader automated test coverage
+- Additional match and player analytics
+- Completed and verified cloud database and application deployment
 
-## License
+## 📚 Documentation
 
-Add a license before distributing the project publicly. If no license is specified, do not assume others have permission to reuse the code.
+- [`docs/api.md`](docs/api.md) — API integration details
+- [`docs/architecture.md`](docs/architecture.md) — Application architecture and data flow
+- [`docs/database.md`](docs/database.md) — Database structure and relationships
+
+## 📄 License
+
+No license is specified in this repository README. Add a license file if you intend to define how others may reuse, modify, or distribute this project. Without a license, others should not assume they have permission to reuse the code.
+
+---
+
+**Repository:** [https://github.com/ritikraj77320/cricbuzz-livestats](https://github.com/ritikraj77320/cricbuzz-livestats)
